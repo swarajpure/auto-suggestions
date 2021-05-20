@@ -9,3 +9,27 @@
   padding: 5px 10px;
   width: 100%;
 }
+
+@media screen and (min-width: 700px) and (max-width: 900px){
+  .container {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 700px){
+  .container {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 275px) and (max-width: 400px){
+  .container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 275px){
+  .container {
+    width: 80%;
+  }
+}
