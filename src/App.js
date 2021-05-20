@@ -1,8 +1,12 @@
+import './App.css'
 import SearchEngine from './components/SearchEngine';
 
 const App = () => {
   return(
-    <SearchEngine />
+    <div className="main-container">
+      <h1>Auto Suggestions</h1>
+      <SearchEngine />
+    </div>
   )
 }
 
