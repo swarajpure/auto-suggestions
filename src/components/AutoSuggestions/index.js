@@ -4,7 +4,7 @@ import DisplayResults from '../DisplayResults';
 import getData from '../../utils/getData';
 import { DEBOUNCE_DELAY, MIN_QUERY_LENGTH } from '../../constants/constants';
 
-const SearchEngine = () => {
+const AutoSuggestions = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
@@ -49,4 +49,4 @@ const SearchEngine = () => {
   );
 }
 
-export default SearchEngine;
+export default AutoSuggestions;
