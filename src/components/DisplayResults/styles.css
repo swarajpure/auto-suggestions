@@ -1,0 +1,24 @@
+.results-container p {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 0px;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.hints {
+  border: 1px solid orange;
+}
+
+.error{
+  border: 1px solid red;
+}
+
+.search-results {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #719ECE;
+  margin: 0;
+  padding: 0 10px;
+  border-radius: 3px;
+}

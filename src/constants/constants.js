@@ -1,0 +1,9 @@
+const MIN_QUERY_LENGTH = 3;
+const DEBOUNCE_DELAY = 500;
+const MAX_RESULTS = 10;
+
+export { 
+  MIN_QUERY_LENGTH,
+  DEBOUNCE_DELAY,
+  MAX_RESULTS
+};

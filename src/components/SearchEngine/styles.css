@@ -1,0 +1,11 @@
+.container {
+  margin-top: 20px;
+  width: 30%;
+}
+
+.container__search-box {
+  box-sizing: border-box;
+  height: 2rem;
+  padding: 5px 10px;
+  width: 100%;
+}
