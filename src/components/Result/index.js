@@ -2,10 +2,7 @@ import './styles.css';
 
 const Result = ({ result }) => {
   return (
-    <div
-      className="result"
-      key={result}
-    >
+    <div className="result">
       {result}
     </div>
   )

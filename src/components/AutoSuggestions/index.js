@@ -1,34 +1,45 @@
 import { useState } from 'react';
-import './styles.css';
+import HelperMessage from '../HelperMessage';
 import DisplayResults from '../DisplayResults';
+import './styles.css';
+import generateMessage from '../../utils/generateMessage'
 import getData from '../../utils/getData';
-import { DEBOUNCE_DELAY, MIN_QUERY_LENGTH } from '../../constants/constants';
+import debounce from '../../utils/debounce'
+import { MIN_QUERY_LENGTH } from '../../constants/constants';
+import { MESSAGES } from '../../constants/constants';
+
+const { START_TYPING, LOADING, NO_RESULTS_FOUND } = MESSAGES;
 
 const AutoSuggestions = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-
-  let timerId;
-
-  const debounce = (func, delay = DEBOUNCE_DELAY) => {
-    clearTimeout(timerId);
-    timerId = setTimeout(func, delay);
-  }
+  const [message, setMessage] = useState(START_TYPING);
 
   const getAndSetData = async (query) => {
+    setSearchResults([]);
     const resultsArray = await getData(query);
-    setSearchResults(resultsArray); 
+    resultsArray.length === 0 ? setMessage(NO_RESULTS_FOUND) : setMessage('');
+    setSearchResults(resultsArray);
   };
+
+  const messageHandler = (e) => {
+    const query = e.target.value;
+    const generatedMessage = generateMessage(query);
+    setMessage(generatedMessage);
+  }
 
   const changeHandler = (e) => {
     const query  = e.target.value
-    if (query.length >= MIN_QUERY_LENGTH) {
-      getAndSetData(query);
+    if (query !== searchQuery) {
+      setSearchQuery(query);
+      if (query.length >= MIN_QUERY_LENGTH) {
+        setMessage(LOADING);
+        getAndSetData(query);
+      }
+      else {
+        setSearchResults([]);
+      }
     }
-    else {
-      setSearchResults([]);
-    }
-    setSearchQuery(query);
   }
 
   return (
@@ -38,8 +49,11 @@ const AutoSuggestions = () => {
         placeholder="Search"
         type="text"
         autoFocus
+        onChange={messageHandler}
         onKeyUp={(e) => debounce(() => changeHandler(e))}
       />
+
+      <HelperMessage message={message}/>
 
       <DisplayResults
         searchQuery={searchQuery}
