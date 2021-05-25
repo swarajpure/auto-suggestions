@@ -1,7 +1,4 @@
 .result {
-  padding: 5px;
+  padding: 0.5rem;
 }
 
-result:hover {
-  background-color: black;
-}

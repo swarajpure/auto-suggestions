@@ -9,6 +9,7 @@ import { MIN_QUERY_LENGTH } from '../../constants/constants';
 import { MESSAGES } from '../../constants/constants';
 
 const { START_TYPING, LOADING, NO_RESULTS_FOUND } = MESSAGES;
+const PUBLIC_FOLDER = process.env.PUBLIC_URL;
 
 const AutoSuggestions = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +19,6 @@ const AutoSuggestions = () => {
 
   const getAndSetData = async (query) => {
     setSearchResults([]);
-    setIsFetching(true);
     const resultsArray = await getData(query);
     setIsFetching(false);
     resultsArray?.length === 0 ? setMessage(NO_RESULTS_FOUND) : setMessage('');
@@ -38,6 +38,7 @@ const AutoSuggestions = () => {
       if (query.length >= MIN_QUERY_LENGTH) {
         if(isFetching) abortRequest();
         setMessage(LOADING);
+        setIsFetching(true);
         getAndSetData(query);
       }
       else {
@@ -48,14 +49,22 @@ const AutoSuggestions = () => {
 
   return (
     <div className="container">
-      <input
-        className="container__search-box"
-        placeholder="Search"
-        type="text"
-        autoFocus
-        onChange={messageHandler}
-        onKeyUp={(e) => debounce(() => changeHandler(e))}
-      />
+      <div className="container__search">
+        <img 
+          className="container__search__icon"
+          src={`${PUBLIC_FOLDER}/magnifying-glass.png`}
+          height="14px" 
+          alt="seach"
+        />
+        <input
+          className="container__search__input"
+          placeholder="Search"
+          type="text"
+          autoFocus
+          onChange={messageHandler}
+          onKeyUp={(e) => debounce(() => changeHandler(e))}
+        />
+      </div>
 
       <HelperMessage message={message}/>
 

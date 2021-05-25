@@ -1,11 +1,26 @@
 .container {
-  margin-top: 15%;
   width: 100%;
 }
 
-.container__search-box {
-  box-sizing: border-box;
-  height: 2rem;
-  padding: 5px 10px;
+.container__search {
   width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px 10px 0 0;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.container__search__icon {
+  margin: 0 12px;
+}
+
+.container__search__input {
+  border: none;
+  width: 100%;
+}
+
+.container__search__input:focus {
+  outline: none;
 }
