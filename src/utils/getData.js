@@ -1,9 +1,20 @@
 import { BOOKS_API_URL } from '../constants/constants';
 
+const abortController = new AbortController();
+let signal = abortController.signal;
+
 const getData = async (query) => {
-  const books = await fetch(`${BOOKS_API_URL}/${query}`);
-  const booksJson = await books.json();
-  return booksJson;
+  try {
+    const books = await fetch(`${BOOKS_API_URL}/${query}`, { signal });
+    const booksJson = await books.json();
+    return booksJson;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-export default getData;
+const abortRequest = () => {
+  abortController.abort();
+}
+
+export { getData, abortRequest };

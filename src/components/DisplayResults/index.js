@@ -3,9 +3,9 @@ import './styles.css';
 import { MAX_RESULTS } from '../../constants/constants';
 
 const DisplayResults = ({ searchResults }) => {
-  const maxResults = searchResults.slice(0, MAX_RESULTS);
+  const maxResults = searchResults?.slice(0, MAX_RESULTS);
 
-  if (maxResults.length) {
+  if (maxResults?.length) {
     return (
       <div className="search-results">
         {

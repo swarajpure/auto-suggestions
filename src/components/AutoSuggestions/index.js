@@ -3,7 +3,7 @@ import HelperMessage from '../HelperMessage';
 import DisplayResults from '../DisplayResults';
 import './styles.css';
 import generateMessage from '../../utils/generateMessage'
-import getData from '../../utils/getData';
+import { getData, abortRequest } from '../../utils/getData';
 import debounce from '../../utils/debounce'
 import { MIN_QUERY_LENGTH } from '../../constants/constants';
 import { MESSAGES } from '../../constants/constants';
@@ -14,11 +14,14 @@ const AutoSuggestions = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [message, setMessage] = useState(START_TYPING);
+  const [isFetching, setIsFetching] = useState(false);
 
   const getAndSetData = async (query) => {
     setSearchResults([]);
+    setIsFetching(true);
     const resultsArray = await getData(query);
-    resultsArray.length === 0 ? setMessage(NO_RESULTS_FOUND) : setMessage('');
+    setIsFetching(false);
+    resultsArray?.length === 0 ? setMessage(NO_RESULTS_FOUND) : setMessage('');
     setSearchResults(resultsArray);
   };
 
@@ -33,6 +36,7 @@ const AutoSuggestions = () => {
     if (query !== searchQuery) {
       setSearchQuery(query);
       if (query.length >= MIN_QUERY_LENGTH) {
+        if(isFetching) abortRequest();
         setMessage(LOADING);
         getAndSetData(query);
       }
